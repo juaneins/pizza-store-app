@@ -2,30 +2,27 @@ package com.delivery.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.delivery.persistence.entity.Pizza;
+import com.delivery.persistence.repository.PizzaRepository;
 
 @Service
 public class PizzaService {
-	
-	private final JdbcTemplate jdbcTemplate;
 
-	@Autowired
-	public PizzaService(JdbcTemplate jdbcTemplate) {
+	private PizzaRepository pizzaRepository;
+
+	public PizzaService(PizzaRepository pizzaRepository) {
 		super();
-		this.jdbcTemplate = jdbcTemplate;
+		this.pizzaRepository = pizzaRepository;
 	}
-	
+
 	public List<Pizza> getAll() {
-		return jdbcTemplate.query("select * from pizza", new BeanPropertyRowMapper<Pizza>(Pizza.class));
+		return pizzaRepository.findAll();
 	}
-	
-	
-	
-	
+
+	public Pizza get(int id) {
+		return pizzaRepository.findById(id).orElse(null);
+	}
 
 }
