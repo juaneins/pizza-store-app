@@ -2,23 +2,31 @@ package com.delivery.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.delivery.persistence.entity.Pizza;
+import com.delivery.persistence.repository.PizzaPagSortRepository;
 import com.delivery.persistence.repository.PizzaRepository;
 
 @Service
 public class PizzaService {
 
-	private PizzaRepository pizzaRepository;
+	private final PizzaRepository pizzaRepository;
+	private final PizzaPagSortRepository pizzaPagSortRepository;
 
-	public PizzaService(PizzaRepository pizzaRepository) {
+	public PizzaService(PizzaRepository pizzaRepository,
+			PizzaPagSortRepository pizzaPagSortRepository) {
 		super();
 		this.pizzaRepository = pizzaRepository;
+		this.pizzaPagSortRepository = pizzaPagSortRepository;
 	}
 
-	public List<Pizza> getAll() {
-		return pizzaRepository.findAll();
+	public Page<Pizza> getAll(int page, int elements) {
+		Pageable pageRequest = PageRequest.of(page, elements);
+		return pizzaPagSortRepository.findAll(pageRequest);
 	}
 	
 	public List<Pizza> getAvailable() {
