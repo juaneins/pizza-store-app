@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,6 +50,15 @@ public class PizzaController {
 	public ResponseEntity<Pizza> update(@RequestBody Pizza pizza) {
 		if(pizza.getIdPizza() != null && this.pizzaService.existe(pizza.getIdPizza())) {
 			return ResponseEntity.ok(this.pizzaService.save(pizza));			
+		}
+		return ResponseEntity.badRequest().build();
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> delete(@PathVariable int id) {
+		if (this.pizzaService.existe(id)) {
+			this.pizzaService.delete(id);
+			return ResponseEntity.ok().build();
 		}
 		return ResponseEntity.badRequest().build();
 	}
