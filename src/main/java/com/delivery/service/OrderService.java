@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.delivery.persistence.entity.Order;
+import com.delivery.persistence.projection.OrderSummary;
 import com.delivery.persistence.repository.OrderRepository;
 
 @Service
@@ -41,6 +42,10 @@ public class OrderService {
 	
 	public List<Order> getCustomerOrders(String idCustomer) {
 		return this.orderRepository.findCustomerOrders(idCustomer);
+	}
+	
+	public OrderSummary getSummary(int orderId) {
+		return this.orderRepository.findSummary(orderId);
 	}
 
 }

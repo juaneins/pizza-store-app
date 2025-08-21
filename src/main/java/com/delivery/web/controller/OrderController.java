@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.delivery.persistence.entity.Order;
+import com.delivery.persistence.projection.OrderSummary;
 import com.delivery.service.OrderService;
 
 @RestController
@@ -40,6 +41,11 @@ public class OrderController {
 	@GetMapping("/customer/{id}")
 	public ResponseEntity<List<Order>> getCustomerOrders(@PathVariable String id) {
 		return ResponseEntity.ok(this.orderService.getCustomerOrders(id));
+	}
+	
+	@GetMapping("/summary/{orderId}")
+	public ResponseEntity<OrderSummary> getSummary(@PathVariable int orderId) {
+		return ResponseEntity.ok(this.orderService.getSummary(orderId));
 	}
 	
 }
