@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.delivery.persistence.entity.Pizza;
@@ -29,9 +30,12 @@ public class PizzaService {
 		return pizzaPagSortRepository.findAll(pageRequest);
 	}
 	
-	public List<Pizza> getAvailable() {
-		System.out.println("count:" + this.pizzaRepository.countByVeganTrue());
-		return this.pizzaRepository.findAllByAvailableTrueOrderByPrice();
+	public Page<Pizza> getAvailable(int page, int elements, String sortBy, String sortDirection) {
+		//System.out.println("count:" + this.pizzaRepository.countByVeganTrue());
+		//return this.pizzaRepository.findAllByAvailableTrueOrderByPrice();
+		Sort sort = Sort.by(Sort.Direction.fromString(sortDirection), sortBy);
+		Pageable pageRequest = PageRequest.of(page, elements, sort);
+		return this.pizzaPagSortRepository.findByAvailableTrue(pageRequest);
 	}
 	
 	public Pizza getByName(String name) {
