@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,6 +35,11 @@ public class OrderController {
 	@GetMapping("/outside")
 	public ResponseEntity<List<Order>> getOutsideOrders() {
 		return ResponseEntity.ok(this.orderService.getOutSideOrders());
+	}
+	
+	@GetMapping("/customer/{id}")
+	public ResponseEntity<List<Order>> getCustomerOrders(@PathVariable String id) {
+		return ResponseEntity.ok(this.orderService.getCustomerOrders(id));
 	}
 	
 }
