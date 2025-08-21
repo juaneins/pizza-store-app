@@ -7,10 +7,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.delivery.persistence.entity.Pizza;
 import com.delivery.persistence.repository.PizzaPagSortRepository;
 import com.delivery.persistence.repository.PizzaRepository;
+import com.delivery.service.dto.UpdatePizzaPriceDto;
 
 @Service
 public class PizzaService {
@@ -64,13 +66,19 @@ public class PizzaService {
 		return pizzaRepository.save(pizza);
 	}
 	
+	public void delete(int id) {
+		this.pizzaRepository.deleteById(id);
+	}
+	
+	@Transactional
+	public void updatePrice(UpdatePizzaPriceDto dto) {
+		this.pizzaRepository.updatePrice(dto);
+	}
+	
 	public boolean existe(int id) {
 		return pizzaRepository.existsById(id); 
 	}
 	
-	public void delete(int id) {
-		this.pizzaRepository.deleteById(id);
-	}
 	
 
 }
