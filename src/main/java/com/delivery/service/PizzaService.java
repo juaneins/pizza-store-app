@@ -13,6 +13,7 @@ import com.delivery.persistence.entity.Pizza;
 import com.delivery.persistence.repository.PizzaPagSortRepository;
 import com.delivery.persistence.repository.PizzaRepository;
 import com.delivery.service.dto.UpdatePizzaPriceDto;
+import com.delivery.service.exception.EmailApiException;
 
 @Service
 public class PizzaService {
@@ -70,9 +71,14 @@ public class PizzaService {
 		this.pizzaRepository.deleteById(id);
 	}
 	
-	@Transactional
+	@Transactional(noRollbackFor = EmailApiException.class)
 	public void updatePrice(UpdatePizzaPriceDto dto) {
 		this.pizzaRepository.updatePrice(dto);
+		this.sendEmail();
+	}
+	
+	private void sendEmail() {
+		throw new EmailApiException("Error al enviar el email! ...");
 	}
 	
 	public boolean existe(int id) {
