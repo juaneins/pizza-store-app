@@ -1,4 +1,4 @@
-package com.delivery.persistence.entity;
+package com.delivery.persistence.audit;
 
 import java.time.LocalDateTime;
 

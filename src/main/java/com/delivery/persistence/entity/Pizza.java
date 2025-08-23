@@ -1,6 +1,11 @@
 package com.delivery.persistence.entity;
 
+import java.io.Serializable;
+
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import com.delivery.persistence.audit.AuditPizzaListener;
+import com.delivery.persistence.audit.AuditableEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,8 +17,10 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "pizza")
-@EntityListeners(AuditingEntityListener.class)
-public class Pizza extends AuditableEntity {
+@EntityListeners({ AuditingEntityListener.class, AuditPizzaListener.class })
+public class Pizza extends AuditableEntity implements Serializable {
+
+	private static final long serialVersionUID = 6709703717119801007L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -96,5 +103,11 @@ public class Pizza extends AuditableEntity {
 
 	public void setAvailable(boolean available) {
 		this.available = available;
+	}
+
+	@Override
+	public String toString() {
+		return "Pizza [idPizza=" + idPizza + ", name=" + name + ", description=" + description + ", price=" + price
+				+ ", vegetarian=" + vegetarian + ", vegan=" + vegan + ", available=" + available + "]";
 	}
 }
