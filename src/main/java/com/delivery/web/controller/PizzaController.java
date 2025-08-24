@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,7 +36,7 @@ public class PizzaController {
 		return ResponseEntity.ok(this.pizzaService.getAll(page, elements));
 	}
 	
-	@GetMapping("/available")
+	@GetMapping("/available")	
 	public ResponseEntity<Page<Pizza>> getAvailable(
 			@RequestParam(defaultValue = "0") int page, 
 			@RequestParam(defaultValue = "8") int elements,
