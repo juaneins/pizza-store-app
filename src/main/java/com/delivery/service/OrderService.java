@@ -6,10 +6,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.delivery.persistence.entity.Order;
 import com.delivery.persistence.projection.OrderSummary;
 import com.delivery.persistence.repository.OrderRepository;
+import com.delivery.service.dto.RandomOrderDto;
 
 @Service
 public class OrderService {
@@ -46,6 +48,11 @@ public class OrderService {
 	
 	public OrderSummary getSummary(int orderId) {
 		return this.orderRepository.findSummary(orderId);
+	}
+	
+	@Transactional
+	public boolean saveRandomOrder(RandomOrderDto dto) {
+		return this.orderRepository.saveRandomOrder(dto.getIdCustomer(), dto.getMethod());
 	}
 
 }
