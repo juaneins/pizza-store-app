@@ -64,3 +64,12 @@ VALUES
 (5, 1, 10, 0.5, 11.0),
 (5, 2, 12, 0.5, 9.5),
 (6, 1, 11, 1, 23);
+
+-- USERS
+-- admin password: admin123
+-- customer password: customer123
+INSERT INTO user(username, disabled, email, locked, password)
+VALUES
+('admin', false, 'admin@email.com', false, '$2y$10$iFq2l9cHLVc58J1qz5P.M.5BfD2lxd6Y.hlUYz0oL7rPB5BfjqSEi'),
+('customer', false, 'customer@email.com', false, '$2y$10$h6Q/eKCdwA04wdHsXnZi6uZJYVWFiYtV7EZ0Mi8inte7H6jV.U0EG');
+
