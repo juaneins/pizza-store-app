@@ -25,8 +25,10 @@ public class SecurityConfig {
         		.cors(withDefaults())    
                 .authorizeHttpRequests(
                         (authorize) -> authorize
-                        .requestMatchers(HttpMethod.GET, "/api/pizzas/**").permitAll() 
-                        .requestMatchers(HttpMethod.PUT).denyAll()
+                        .requestMatchers(HttpMethod.GET, "/api/pizzas/**").hasAnyRole("ADMIN","CUSTOMER")
+                        .requestMatchers(HttpMethod.POST, "/api/pizzas/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT).hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/orders/**").hasRole("ADMIN")
                         .anyRequest()
                         .authenticated()
                 		)                
@@ -38,13 +40,20 @@ public class SecurityConfig {
 	
 	@Bean
 	public UserDetailsService memoryUsers() {
+		
 		UserDetails admin = User.builder()
 				.username("admin")
 				.password(passwordEncoder().encode("admin"))
 				.roles("ADMIN")
 				.build();
 		
-		return new InMemoryUserDetailsManager(admin);
+		UserDetails customer = User.builder()
+				.username("customer")
+				.password(passwordEncoder().encode("customer123"))
+				.roles("CUSTOMER")
+				.build();
+		
+		return new InMemoryUserDetailsManager(admin, customer);
 	}
 	
 	@Bean
