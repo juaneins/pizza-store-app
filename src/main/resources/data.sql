@@ -4,6 +4,9 @@ TRUNCATE `pizza_db`.`order_item`;
 TRUNCATE `pizza_db`.`pizza_order`;
 TRUNCATE `pizza_db`.`customer`;
 TRUNCATE `pizza_db`.`pizza`;
+TRUNCATE `pizza_db`.`user_role`;
+TRUNCATE `pizza_db`.`user`;
+
 SET FOREIGN_KEY_CHECKS = 1;
 
 -- INSERT CUSTOMERS
@@ -73,3 +76,9 @@ VALUES
 ('admin', false, 'admin@email.com', false, '$2y$10$iFq2l9cHLVc58J1qz5P.M.5BfD2lxd6Y.hlUYz0oL7rPB5BfjqSEi'),
 ('customer', false, 'customer@email.com', false, '$2y$10$h6Q/eKCdwA04wdHsXnZi6uZJYVWFiYtV7EZ0Mi8inte7H6jV.U0EG');
 
+-- roles de usuario
+insert into user_role (username, role, granted_date)
+values ('admin','ADMIN',NOW());
+
+insert into user_role (username, role, granted_date)
+values ('customer','CUSTOMER',NOW());
