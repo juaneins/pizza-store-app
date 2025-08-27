@@ -25,10 +25,11 @@ public class SecurityConfig {
         		.cors(withDefaults())    
                 .authorizeHttpRequests(
                         (authorize) -> authorize
-                        .requestMatchers(HttpMethod.GET, "/api/pizzas/**").hasAnyRole("ADMIN","CUSTOMER")
+                        .requestMatchers(HttpMethod.GET, "/api/pizzas/**").hasAnyRole("ADMIN", "CUSTOMER")
                         .requestMatchers(HttpMethod.POST, "/api/pizzas/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT).hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/orders/**").hasRole("ADMIN")
+                        .requestMatchers("/api/orders/random").hasAuthority("random_order")
+                        .requestMatchers("/api/orders/**").hasRole("ADMIN")
                         .anyRequest()
                         .authenticated()
                 		)                
