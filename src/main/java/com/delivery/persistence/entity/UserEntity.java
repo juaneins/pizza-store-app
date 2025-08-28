@@ -83,4 +83,12 @@ public class UserEntity {
 		this.roles = roles;
 	}
 
+	@Override
+	public String toString() {
+		return "UserEntity [username=" + username + ", password=" + password + ", email=" + email + ", locked=" + locked
+				+ ", disabled=" + disabled + ", roles=" + roles + "]";
+	}
+	
+	
+
 }
